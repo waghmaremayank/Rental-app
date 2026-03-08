@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nearby Rentals - Nagpur</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-active {
+            background: rgba(19, 127, 236, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(19, 127, 236, 0.2);
+        }
+        .map-marker {
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased overflow-hidden">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Header & Search -->
+<div class="absolute top-0 left-0 right-0 z-20 px-4 pt-4 pb-2 bg-gradient-to-b from-white/90 to-transparent dark:from-background-dark/90">
+<div class="flex items-center gap-3 mb-4">
+<div class="flex-1">
+<label class="flex items-center h-12 w-full bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 px-4">
+<span class="material-symbols-outlined text-primary mr-2">search</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-sm font-medium placeholder:text-slate-400" placeholder="Search cameras, bikes, tools in Nagpur..." value="Nagpur, Maharashtra"/>
+<span class="material-symbols-outlined text-slate-400">mic</span>
+</label>
+</div>
+<button class="flex size-12 items-center justify-center rounded-xl bg-white dark:bg-slate-800 shadow-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+<!-- Category Filters -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-2">
+<button class="flex h-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-white px-4 shadow-md">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+<p class="text-xs font-semibold">Electronics</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-4 shadow-sm border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-sm">pedal_bike</span>
+<p class="text-xs font-semibold">Vehicles</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-4 shadow-sm border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-sm">handyman</span>
+<p class="text-xs font-semibold">Tools</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-4 shadow-sm border border-slate-200 dark:border-slate-700">
+<span class="material-symbols-outlined text-sm">apparel</span>
+<p class="text-xs font-semibold">Clothes</p>
+</button>
+</div>
+</div>
+<!-- Interactive Map Content -->
+<div class="relative flex-1 bg-slate-200 dark:bg-slate-900 overflow-hidden">
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-80" data-alt="Stylized map of Nagpur city with roads and parks" data-location="Nagpur, India" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiqwWyRWUU4H1NgDmRlc8n9eSbCyCwIHMB8hkxXgRC_8DC8zPNPPN593Gxakxt5LVKFeOwtdKLcTO2joldtR-iYP412BeqDN3rMchjFNLcCiN8NxOIMtdvO2fGJBjUJMJnucVQAWWY0oWQ8ZmyDiWDKJfIyiKajRDEYgjOQCJ8I3ry9Joi9_EOp3ptk4za2wB25YDQHcP1_kFk8ZMrDcEWZoNuubEdVcMr4MinOKjIT9O1yQsF2WHZHoTaukCp8bPEA-UwzzjyXQ");'></div>
+<!-- Map Overlay UI Controls -->
+<div class="absolute right-4 bottom-80 z-10 flex flex-col gap-2">
+<button class="flex size-10 items-center justify-center rounded-lg bg-white dark:bg-slate-800 shadow-lg text-slate-700 dark:text-slate-200">
+<span class="material-symbols-outlined">layers</span>
+</button>
+<div class="flex flex-col rounded-lg bg-white dark:bg-slate-800 shadow-lg overflow-hidden border border-slate-100 dark:border-slate-700">
+<button class="flex size-10 items-center justify-center text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700"><span class="material-symbols-outlined">add</span></button>
+<button class="flex size-10 items-center justify-center text-slate-700 dark:text-slate-200"><span class="material-symbols-outlined">remove</span></button>
+</div>
+<button class="flex size-10 items-center justify-center rounded-lg bg-primary shadow-lg text-white">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<!-- Custom Map Markers -->
+<!-- Selected Marker (Canon R6) -->
+<div class="absolute top-[45%] left-[55%] z-20 -translate-x-1/2 -translate-y-1/2 animate-bounce">
+<div class="relative flex flex-col items-center">
+<div class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg mb-1 whitespace-nowrap">₹25/day</div>
+<div class="size-8 bg-primary rounded-full border-2 border-white flex items-center justify-center text-white shadow-xl scale-125">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</div>
+</div>
+</div>
+<!-- Other Markers -->
+<div class="absolute top-[30%] left-[40%] z-10 -translate-x-1/2 -translate-y-1/2">
+<div class="relative flex flex-col items-center opacity-80">
+<div class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[10px] font-bold px-2 py-1 rounded-full shadow-lg mb-1 whitespace-nowrap border border-slate-100 dark:border-slate-700">₹800/day</div>
+<div class="size-6 bg-slate-500 rounded-full border-2 border-white flex items-center justify-center text-white shadow-md">
+<span class="material-symbols-outlined text-xs">pedal_bike</span>
+</div>
+</div>
+</div>
+<div class="absolute top-[60%] left-[30%] z-10 -translate-x-1/2 -translate-y-1/2">
+<div class="relative flex flex-col items-center opacity-80">
+<div class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-[10px] font-bold px-2 py-1 rounded-full shadow-lg mb-1 whitespace-nowrap border border-slate-100 dark:border-slate-700">₹150/day</div>
+<div class="size-6 bg-slate-500 rounded-full border-2 border-white flex items-center justify-center text-white shadow-md">
+<span class="material-symbols-outlined text-xs">construction</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Sheet Details -->
+<div class="absolute bottom-16 left-0 right-0 z-30 px-4 pb-4">
+<div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden border border-slate-100 dark:border-slate-700 max-w-md mx-auto">
+<div class="flex p-4 gap-4">
+<div class="size-24 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-700 shrink-0">
+<img class="w-full h-full object-cover" data-alt="Professional Canon EOS R6 Mirrorless Camera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVRt0VokP04kjBP3m5aVaakztaUQtD5jgv8Bv5WowmgLDMcaOMadUX7XBgARDiAIeIFPnnB_O9vBUXYb-6A1udHijpvEmzXNubpTxviZCQgwQgJnL65qFTcXKeBRKEb7c06zgOYgUYSCGEb05_hVpWhz-ZRHBHEAoWsriRin0dxiZdnMvHeHkKmRq5be9AqlyYQUkKn9-mNdm79OhK28XgOcDPLTkajDhWADAKMTy5Y0-0IYxByDdMI65N5l1dICh7GNTPxfbpKQ"/>
+</div>
+<div class="flex-1 flex flex-col">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-base font-bold text-slate-900 dark:text-slate-100">Canon EOS R6</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400">Professional Mirrorless</p>
+</div>
+<div class="bg-primary/10 text-primary px-2 py-1 rounded text-xs font-bold">
+                                ₹25/day
+                            </div>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-yellow-500 text-sm fill-1">star</span>
+<span class="text-xs font-bold">4.9</span>
+</div>
+<div class="flex items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span class="text-xs">1.2 km</span>
+</div>
+</div>
+<div class="mt-auto pt-2 flex gap-2">
+<button class="flex-1 bg-primary text-white text-sm font-bold py-2.5 rounded-lg hover:bg-primary/90 transition-colors">
+                                Rent Now
+                            </button>
+<button class="size-10 flex items-center justify-center border border-slate-200 dark:border-slate-700 rounded-lg text-slate-400">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Mini handle for the sheet -->
+<div class="absolute top-1 left-1/2 -translate-x-1/2 w-10 h-1 bg-slate-200 dark:bg-slate-700 rounded-full"></div>
+</div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="z-40 mt-auto flex items-center justify-around border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md px-4 pb-6 pt-3 h-20">
+<a class="flex flex-col items-center gap-1 relative px-4 py-1.5 rounded-full glass-active group" href="#">
+<span class="material-symbols-outlined text-primary fill-1">explore</span>
+<p class="text-[10px] font-bold text-primary">Explore</p>
+</a>
+<a class="flex flex-col items-center gap-1 px-4 py-1.5 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">favorite</span>
+<p class="text-[10px] font-medium">Saved</p>
+</a>
+<a class="flex flex-col items-center gap-1 px-4 py-1.5 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">key</span>
+<p class="text-[10px] font-medium">Rentals</p>
+</a>
+<a class="flex flex-col items-center gap-1 px-4 py-1.5 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<p class="text-[10px] font-medium">Profile</p>
+</a>
+</div>
+</div>
+</body></html>

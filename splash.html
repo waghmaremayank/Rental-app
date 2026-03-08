@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Go Rental Splash Screen</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark h-screen overflow-hidden">
+    <!-- Splash Screen Container -->
+    <div
+        class="relative flex h-full w-full flex-col items-center justify-between bg-gradient-to-br from-[#08111a] via-[#101922] to-primary/20 p-8 text-white">
+        <!-- Top Accessory -->
+        <div class="w-full flex justify-end">
+            <div class="p-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                <span class="material-symbols-outlined text-primary/80">
+                    settings_input_component
+                </span>
+            </div>
+        </div>
+        <!-- Center Logo Section -->
+        <div class="flex flex-col items-center justify-center space-y-6">
+            <div
+                class="relative flex items-center justify-center size-24 md:size-32 bg-primary rounded-xl shadow-2xl shadow-primary/20 animate-pulse">
+                <!-- Minimalist Logo Icon -->
+                <span class="material-symbols-outlined text-white text-5xl md:text-6xl"
+                    style="font-variation-settings: 'FILL' 1, 'wght' 700;">
+                    key_visualizer
+                </span>
+                <!-- Decorative rings -->
+                <div
+                    class="absolute inset-0 -m-4 border border-primary/20 rounded-2xl animate-[ping_3s_linear_infinite]">
+                </div>
+                <div
+                    class="absolute inset-0 -m-8 border border-primary/10 rounded-2xl animate-[ping_4s_linear_infinite]">
+                </div>
+            </div>
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-100">
+                    Go Rental
+                </h1>
+                <div class="mt-2 h-1 w-12 bg-primary mx-auto rounded-full"></div>
+            </div>
+        </div>
+        <!-- Bottom Tagline Section -->
+        <div class="w-full max-w-xs text-center pb-12">
+            <div class="flex flex-col items-center space-y-8">
+                <!-- Tagline -->
+                <p class="text-xl md:text-2xl font-medium tracking-wide text-slate-300">
+                    Rent <span class="text-primary font-bold">anything</span>, <br />
+                    <span class="text-white">anywhere.</span>
+                </p>
+                <!-- Loading Indicator -->
+                <div class="flex space-x-2">
+                    <div class="w-2 h-2 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]"></div>
+                    <div class="w-2 h-2 rounded-full bg-primary/40 animate-bounce [animation-delay:-0.15s]"></div>
+                    <div class="w-2 h-2 rounded-full bg-primary/20 animate-bounce"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Background Elements for Premium Feel -->
+        <div class="absolute top-1/4 -left-20 size-64 bg-primary/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-1/4 -right-20 size-80 bg-primary/5 rounded-full blur-[120px]"></div>
+        <!-- Abstract Background Image (Subtle Texture) -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
+            data-alt="Abstract deep blue geometric mesh pattern texture"
+            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrFnq9y1D7i6Nb_A7lRetSsGzf-aM1SO3lcXPLdnzVyCmNeJgJ_JRLLUGnfANBG5HQrrs80kbXIy18s9P8zZtAT1TZHHrpOyWDSz2wUJQXa69YAvHmT10uWOf3KlpbDawksv1XUqKmML5o77gZYTBQ5Y2A5-dQwJCwnbMZqW6-UifH75tbrCCBQ7fcH1xLnyj58EQiDJluIU1jPzZFQ4PYF69I_ZTpWIcLbxku05SN7TG8P3ArjhoTUqgKSbDgkLePIbvL1H2MpQ"); background-size: cover;'>
+        </div>
+    </div>
+
+    <script>
+        // Automatically redirect to index.html after 3 seconds
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 3000);
+    </script>
+</body>
+
+</html>

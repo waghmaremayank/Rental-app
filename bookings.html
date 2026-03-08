@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Bookings - Rental App</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .liquid-glass {
+            background: rgba(19, 127, 236, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(19, 127, 236, 0.2);
+            box-shadow: 0 4px 12px rgba(19, 127, 236, 0.1);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center px-4 py-4 justify-between max-w-xl mx-auto">
+            <a href="index.html"
+                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer -ml-2">
+                <span class="material-symbols-outlined text-slate-700 dark:text-slate-300">arrow_back</span>
+            </a>
+            <h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">My Bookings</h1>
+            <div class="size-10 flex items-center justify-center">
+                <span class="material-symbols-outlined text-slate-700 dark:text-slate-300">more_vert</span>
+            </div>
+        </div>
+        <!-- Tabs -->
+        <div class="flex px-4 gap-8 max-w-xl mx-auto">
+            <a class="relative flex flex-col items-center justify-center pb-3 pt-2 group" href="#">
+                <p class="text-sm font-bold text-primary">Active</p>
+                <div class="absolute bottom-0 w-full h-1 bg-primary rounded-t-full"></div>
+            </a>
+            <a class="flex flex-col items-center justify-center pb-3 pt-2 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                href="#">
+                <p class="text-sm font-semibold">Past</p>
+            </a>
+        </div>
+    </header>
+    <main class="flex-1 overflow-y-auto pb-32 max-w-xl mx-auto">
+        <!-- Section Header -->
+        <div class="px-4 py-6">
+            <h2 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Current Rentals</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Manage your ongoing gear rentals</p>
+        </div>
+        <!-- Booking List Item -->
+        <div class="px-4 space-y-4">
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 transition-all hover:shadow-md">
+                <div class="flex gap-4">
+                    <div class="relative w-24 h-24 shrink-0 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800">
+                        <img alt="Sony Alpha A7 IV" class="w-full h-full object-cover"
+                            data-alt="Modern professional mirrorless camera Sony Alpha"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9Tl0XUx46hnS5DWXRqoiNTQMwJFJ9HFBtboX8NZjbskidsPg1ZVfl8myVb5a1QpCvdCZNiqoVmmmkZxupiUPTD3NAlmvHa_oL54xsPzc2Sg3Y0SikkGTI3gTDzuDSQ2_dTdngBgjYO5PX2Q_jUI0r8O61DawtyezXWzyNx9cNO1VpTqOwwCIi1EfM1Nl2XN2l4_9MG40IkJf4e0yCMSYgl1heMSEWvmxk-mtdHJStFGs-To9eNWmSX71gyVvVTKSxBv71gxs-yA" />
+                        <div
+                            class="absolute top-1 left-1 bg-primary/90 text-[10px] font-bold text-white px-2 py-0.5 rounded-full uppercase tracking-wider">
+                            Active</div>
+                    </div>
+                    <div class="flex flex-col justify-between flex-1 py-0.5">
+                        <div>
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-base font-bold text-slate-900 dark:text-slate-100 leading-tight">Sony
+                                    Alpha A7 IV</h3>
+                                <span class="text-base font-bold text-primary leading-tight">₹4,500</span>
+                            </div>
+                            <div class="flex items-center gap-1 mt-1 text-slate-500 dark:text-slate-400">
+                                <span class="material-symbols-outlined text-sm">location_on</span>
+                                <p class="text-xs font-medium">Nagpur, Maharashtra</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 mt-3">
+                            <div class="flex-1 h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-3/4 h-full bg-primary rounded-full"></div>
+                            </div>
+                            <p
+                                class="text-[11px] font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap uppercase tracking-wide">
+                                Due Oct 18</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex gap-3">
+                    <button
+                        class="flex-1 py-2 text-xs font-bold text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
+                        Extend Trip
+                    </button>
+                    <button
+                        class="flex-1 py-2 text-xs font-bold text-white bg-primary rounded-lg shadow-sm shadow-primary/20 hover:brightness-110 transition-all">
+                        Support
+                    </button>
+                </div>
+            </div>
+            <!-- Placeholder for other active bookings -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-xl p-4 shadow-sm border border-slate-200 dark:border-slate-800 opacity-60">
+                <div class="flex gap-4">
+                    <div class="w-24 h-24 shrink-0 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <img alt="DJI Drone" class="w-full h-full object-cover"
+                            data-alt="Professional camera drone in flight"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjW2ZN1tJwkgtwB1U45t0V9B9XqI4bnSpxxTabfCDY5KH5YP0DozT0fJ-dd5DDeFOec_DihNL8B8IPbLzb3id49jIoQKpMJWiQ-432gCEtuOjGPOgzrlRjklsxVs-A71t00cJ-saT0LEVxRtSLjxy5OJ-CqvPtCTyXptRnAfyMdEscjy-CrbOIXMBD-YCu21N8w3OGSQzyS3FX11gpwiiQSl56LIFkaHyFo6khja8ilEKRByu6Ae8gjH4252cEo_mBQLndgzarVA" />
+                    </div>
+                    <div class="flex flex-col justify-center flex-1">
+                        <h3 class="text-base font-bold text-slate-900 dark:text-slate-100 leading-tight">DJI Mavic 3 Pro
+                        </h3>
+                        <p class="text-xs font-medium text-slate-500 mt-1">Nagpur, Maharashtra</p>
+                        <p class="text-xs font-bold text-primary mt-2">Active - Due Oct 21</p>
+                    </div>
+                    <div class="shrink-0">
+                        <p class="text-base font-bold text-slate-900 dark:text-slate-100">₹3,200</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Suggestion Card -->
+        <div
+            class="mx-4 mt-8 p-6 rounded-2xl bg-gradient-to-br from-primary to-blue-700 text-white shadow-xl relative overflow-hidden">
+            <div class="relative z-10">
+                <h4 class="text-lg font-bold">Insure your rentals</h4>
+                <p class="text-sm opacity-90 mt-1 max-w-[200px]">Get 100% coverage for accidental damages starting at
+                    ₹49/day.</p>
+                <button
+                    class="mt-4 bg-white text-primary px-4 py-2 rounded-lg text-xs font-bold hover:bg-opacity-90 transition-all">Learn
+                    More</button>
+            </div>
+            <span
+                class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl opacity-20 rotate-12">shield_with_heart</span>
+        </div>
+    </main>
+    <!-- Liquid Glass Navigation Bar -->
+    <nav class="fixed bottom-4 left-4 right-4 liquid-glass max-w-xl mx-auto rounded-full py-2 px-6 shadow-2xl z-50">
+        <div class="flex items-center justify-between">
+            <a class="flex flex-col items-center gap-0.5 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                href="index.html">
+                <span class="material-symbols-outlined text-2xl">home</span>
+                <span class="text-[10px] font-medium">Home</span>
+            </a>
+            <a class="flex flex-col items-center gap-0.5 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                href="map.html">
+                <span class="material-symbols-outlined text-2xl">explore</span>
+                <span class="text-[10px] font-medium">Explore</span>
+            </a>
+            <div class="relative -top-6">
+                <button
+                    class="size-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center ring-4 ring-background-light dark:ring-background-dark btn-pulse hover:bg-blue-600 transition-colors">
+                    <span class="material-symbols-outlined text-3xl">add</span>
+                </button>
+            </div>
+            <a class="flex flex-col items-center gap-0.5 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                href="cart.html">
+                <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+                <span class="text-[10px] font-medium">Cart</span>
+            </a>
+            <a class="flex flex-col items-center gap-0.5 text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+                href="profile.html">
+                <span class="material-symbols-outlined text-2xl">person</span>
+                <span class="text-[10px] font-medium">Profile</span>
+            </a>
+        </div>
+    </nav>
+</body>
+
+</html>
