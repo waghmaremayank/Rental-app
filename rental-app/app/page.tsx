@@ -65,7 +65,7 @@ export default async function HomePage({
             </Link>
           </div>
           {/* Search bar */}
-          <form action="/" method="GET">
+          <form action="/explore" method="GET">
             <label className="flex items-center h-12 w-full bg-slate-100 rounded-full px-4 gap-2">
               <span className="material-symbols-outlined text-primary">search</span>
               <input
