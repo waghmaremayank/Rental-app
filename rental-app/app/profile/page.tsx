@@ -193,7 +193,7 @@ export default function ProfilePage() {
                         { href: "#", icon: "payments", label: "Payments & Earnings", desc: "Manage payouts" },
                         { href: "#", icon: "settings", label: "Settings", desc: "Notifications, privacy, security" },
                     ].map((item) => (
-                        <Link key={item.href} href={item.href}>
+                        <Link key={item.label} href={item.href}>
                             <div className="flex items-center p-4 bg-white rounded-xl shadow-sm border border-slate-100 group hover:shadow-md transition-shadow cursor-pointer">
                                 <div className="size-10 rounded-full bg-slate-100 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors mr-4 shrink-0">
                                     <span className="material-symbols-outlined">{item.icon}</span>
