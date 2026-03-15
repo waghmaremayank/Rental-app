@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import BottomNav from "@/components/BottomNav";
+import LocationPickerMap from "@/components/LocationPickerMap";
 import Link from "next/link";
 
 const CATEGORIES = [
@@ -30,6 +31,8 @@ export default function PostItemPage() {
         description: "",
         price_per_day: "",
         location: "",
+        latitude: null as number | null,
+        longitude: null as number | null,
         specs: {} as Record<string, string>,
     });
 
@@ -112,6 +115,8 @@ export default function PostItemPage() {
                     price_per_day: parseFloat(formData.price_per_day),
                     category: formData.category,
                     location: formData.location,
+                    latitude: formData.latitude,
+                    longitude: formData.longitude,
                     images: uploadedUrls,
                     specs: Object.keys(formData.specs).length > 0 ? formData.specs : null,
                     user_id: user.id,
@@ -297,6 +302,13 @@ export default function PostItemPage() {
 
                         <div>
                             <label className="text-sm font-bold text-slate-700 block mb-1.5">Pickup Location *</label>
+                            <p className="text-xs text-slate-500 mb-2">Drag the marker exactly where renters should pick up the item.</p>
+                            <LocationPickerMap 
+                                onLocationChange={(lat, lng) => setFormData(p => ({ ...p, latitude: lat, longitude: lng }))}
+                                initialLocation={formData.latitude && formData.longitude ? { lat: formData.latitude, lng: formData.longitude } : undefined}
+                            />
+                            
+                            <label className="text-sm font-bold text-slate-700 block mb-1.5 mt-4">Address Details</label>
                             <div className="relative">
                                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">location_on</span>
                                 <input

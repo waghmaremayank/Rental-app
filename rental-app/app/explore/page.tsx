@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
 import ItemCard from "@/components/ItemCard";
+import ExploreMap from "@/components/ExploreMap";
 import BottomNav from "@/components/BottomNav";
 import Link from "next/link";
 import { Database } from "@/lib/types";
@@ -29,13 +30,14 @@ async function searchItems(query?: string): Promise<Item[]> {
 export default async function ExplorePage({
     searchParams,
 }: {
-    searchParams: Promise<{ q?: string }>;
+    searchParams: Promise<{ q?: string; view?: string }>;
 }) {
     const params = await searchParams;
     const items = await searchItems(params.q);
+    const isMapView = params.view === "map";
 
     return (
-        <div className="min-h-screen bg-[#f6f7f8] pb-36 font-sans text-slate-900">
+        <div className="min-h-screen flex flex-col bg-[#f6f7f8] pb-36 font-sans text-slate-900 overflow-hidden">
             {/* Header / Search */}
             <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 p-4">
                 <div className="flex items-center gap-3 max-w-xl mx-auto">
@@ -64,12 +66,23 @@ export default async function ExplorePage({
                 </div>
             </div>
 
-            <div className="max-w-xl mx-auto px-4 mt-6">
+            <div className={`max-w-xl mx-auto px-4 mt-4 flex-1 flex flex-col ${isMapView ? "h-[calc(100vh-200px)]" : ""}`}>
                 <div className="flex items-center justify-between mb-4">
                     <h2 className="text-lg font-bold text-slate-900">
-                        {params.q ? `Search results for "${params.q}"` : "Explore All Items"}
+                        {params.q ? `Results for "${params.q}"` : "Explore Items"}
                     </h2>
-                    <span className="text-sm font-medium text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">{items.length} found</span>
+                    
+                    <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-slate-500 bg-slate-200 px-2.5 py-1 rounded-full">{items.length} found</span>
+                        <div className="flex bg-slate-200 rounded-full p-1 opacity-90">
+                            <Link href={`/explore?q=${params.q || ''}&view=list`} className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${!isMapView ? 'bg-white shadow text-slate-900' : 'text-slate-500'}`}>
+                                List
+                            </Link>
+                            <Link href={`/explore?q=${params.q || ''}&view=map`} className={`px-3 py-1 rounded-full text-xs font-bold transition-all ${isMapView ? 'bg-white shadow text-slate-900' : 'text-slate-500'}`}>
+                                Map
+                            </Link>
+                        </div>
+                    </div>
                 </div>
 
                 {items.length === 0 ? (
@@ -86,6 +99,10 @@ export default async function ExplorePage({
                                 Clear Search
                             </button>
                         </Link>
+                    </div>
+                ) : isMapView ? (
+                    <div className="flex-1 w-full relative">
+                        <ExploreMap items={items} />
                     </div>
                 ) : (
                     <div className="grid gap-4">
