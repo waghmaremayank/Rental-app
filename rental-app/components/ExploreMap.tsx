@@ -39,6 +39,7 @@ export default function ExploreMap({ items }: { items: Item[] }) {
 
     const [userLocation, setUserLocation] = useState<UserLocation | null>(null);
     const [gpsStatus, setGpsStatus] = useState<"idle" | "loading" | "granted" | "denied">("idle");
+    const [gpsError, setGpsError] = useState<string>("");
     const [mapCenter, setMapCenter] = useState<[number, number]>(nagpurCenter);
     const [nearbyRadius, setNearbyRadius] = useState<number>(5); // km
 
@@ -63,10 +64,20 @@ export default function ExploreMap({ items }: { items: Item[] }) {
         : sortedItems;
 
     const requestGPS = useCallback(() => {
+        if (typeof window === "undefined") return;
+
         if (!("geolocation" in navigator)) {
             setGpsStatus("denied");
+            setGpsError("Your browser does not support location services.");
             return;
         }
+
+        if (window.isSecureContext === false) {
+            setGpsStatus("denied");
+            setGpsError("Location access needs a secure connection (HTTPS).");
+            return;
+        }
+
         setGpsStatus("loading");
         navigator.geolocation.getCurrentPosition(
             (pos) => {
@@ -74,9 +85,17 @@ export default function ExploreMap({ items }: { items: Item[] }) {
                 setUserLocation(loc);
                 setMapCenter([loc.lng, loc.lat]);
                 setGpsStatus("granted");
+                setGpsError("");
             },
-            () => {
+            (err) => {
                 setGpsStatus("denied");
+                if (err.code === 1) {
+                    setGpsError("Please allow permissions in browser settings.");
+                } else if (err.code === 2) {
+                    setGpsError("Location signal is unavailable.");
+                } else {
+                    setGpsError("Timeout getting location.");
+                }
             },
             { enableHighAccuracy: true, timeout: 10000 }
         );
@@ -108,14 +127,21 @@ export default function ExploreMap({ items }: { items: Item[] }) {
                 </div>
             )}
             {gpsStatus === "denied" && (
-                <div className="flex items-center justify-between bg-amber-50 text-amber-700 border border-amber-200 px-4 py-2.5 rounded-xl text-sm font-semibold">
-                    <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base">location_off</span>
-                        Location denied. Showing all items.
+                <div className="flex items-center justify-between bg-amber-50 text-amber-900 border border-amber-200 px-4 py-3 rounded-xl shadow-sm">
+                    <div className="flex items-center gap-3">
+                        <div className="size-8 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-amber-600 text-[18px]">location_off</span>
+                        </div>
+                        <div className="flex-1 min-w-0 pr-2">
+                            <p className="text-sm font-bold truncate">Location unavailable</p>
+                            <p className="text-xs text-amber-700/80 mt-0.5 truncate">{gpsError || "Enable GPS to find nearby items."}</p>
+                        </div>
                     </div>
-                    <button onClick={requestGPS} className="text-xs font-bold text-primary bg-white border border-primary/20 px-3 py-1 rounded-full hover:bg-primary/10 transition-colors">
+                    {typeof window !== "undefined" && window.isSecureContext !== false && (
+                    <button onClick={requestGPS} className="text-xs font-bold text-amber-700 bg-white border border-amber-200 px-3 py-1.5 rounded-full hover:bg-amber-100 transition-colors shadow-sm shrink-0 whitespace-nowrap">
                         Retry
                     </button>
+                    )}
                 </div>
             )}
 
